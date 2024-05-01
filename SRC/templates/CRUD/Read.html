@@ -1,0 +1,107 @@
+{% extends './layout.html' %}
+
+{% block css %}
+<link rel="stylesheet" href="{{url_for('static',filename='css/login.css')}}">
+{% endblock %}
+
+{% block bokeh_resource %}
+
+<!-- Histogram 1-->
+{{data.script1|indent(4)|safe}}
+{{data.js_resources1|indent(4)|safe}}
+{{data.css_resources1|indent(4)|safe}}
+
+<!-- Histogram 2-->
+{{data.script2|indent(4)|safe}}
+{{data.js_resources2|indent(4)|safe}}
+{{data.css_resources2|indent(4)|safe}}
+
+<!-- Histogram 3-->
+{{data.script3|indent(4)|safe}}
+{{data.js_resources3|indent(4)|safe}}
+{{data.css_resources3|indent(4)|safe}}
+
+<!-- Histogram 4-->
+{{data.script4|indent(4)|safe}}
+{{data.js_resources4|indent(4)|safe}}
+{{data.css_resources4|indent(4)|safe}}
+
+<!-- Histogram 5-->
+{{data.script5|indent(4)|safe}}
+{{data.js_resources5|indent(4)|safe}}
+{{data.css_resources5|indent(4)|safe}}
+
+<!-- Histogram 6-->
+{{data.script6|indent(4)|safe}}
+{{data.js_resources6|indent(4)|safe}}
+{{data.css_resources6|indent(4)|safe}}
+
+
+
+{% endblock %}
+
+{% block body %}
+
+<div class="row mb-3 text-center">
+    
+    <div class="row mb-3 text-center">
+        <div class="pb-3">
+          <h1> Limit central theorem </h1>
+          <a class="btn btn-secondary w-100 py-2" href="{{url_for('home')}}">Home</a>
+        </div>
+
+
+    <div class="row mb-3 text-center">
+        <!-- Histogram 1 -->
+        <div class="col-4 themed-grid-col"> {{data.div1|indent(4)|safe}} </div>
+        <!-- Histogram 2 -->
+        <div class="col-4 themed-grid-col"> {{data.div2|indent(4)|safe}} </div>
+        <!-- Histogram 3-->
+        <div class="col-4 themed-grid-col"> {{data.div3|indent(4)|safe}} </div>
+    </div>
+
+    <div class="row mb-3 text-center">
+        <!-- Normalidad test-->
+        <div class="col-4 themed-grid-col"> 
+            <p> This is the first interaction for get probe the normality</p> 
+        </div>
+        <!-- Normalidad test-->
+        <div class="col-4 themed-grid-col"> 
+            <p> This is the second interaction for get probe the normality</p>
+
+        </div>
+        <!--Hipotesis test-->
+        <div class="col-4 themed-grid-col"> 
+            <p> This is the third interaction for get probe the normality</p> 
+         </div>
+    </div>
+
+    <div class="row mb-3 text-center">
+        <!-- Histogram 4-->
+        <div class="col-4 themed-grid-col"> {{data.div4|indent(4)|safe}} </div>
+        <!-- Histogram 5-->
+        <div class="col-4 themed-grid-col"> {{data.div5|indent(4)|safe}} </div>
+        <!-- Histogram 6-->
+        <div class="col-4 themed-grid-col">{{data.div6|indent(4)|safe}}</div>
+    </div>
+
+    <div class="row mb-3 text-center">
+        <!-- Normalidad test-->
+        <div class="col-4 themed-grid-col"> 
+            <p> This is the fourth interaction for get probe the normality</p>
+        </div>
+        <!-- Normalidad test-->
+        <div class="col-4 themed-grid-col"> 
+            <p> This is the fifth interaction for get probe the normality</p>
+
+        </div>
+        <!-- Normalidad test-->
+        <div class="col-4 themed-grid-col"> 
+            <p> This is the sixth interaction for get probe the normality</p>
+         </div>
+    </div>
+    
+</div>
+
+
+{% endblock %}

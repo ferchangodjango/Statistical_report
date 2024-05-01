@@ -1,0 +1,64 @@
+def queryexecute(db,column1,column2,data={'ID':56}):
+    try:
+        cursor=db.connection.cursor()
+        query=profitbyproductbyseller(data)
+        cursor.execute(query)
+        answer=cursor.fetchall()
+        answers=[]
+        for row in answer:
+            row_answer={
+                column1:row[0],
+                column2:row[1]    
+            }
+            answers.append(row_answer)
+        JSONIFY_TOTAL=jsonify({
+            "TABLA":answers,
+            "message":"Get data ok!!"
+            })
+        JSON_TOTAL=JSONIFY_TOTAL.get_json()
+        DATA_FRAME=pd.json_normalize(JSON_TOTAL['TABLA'])
+        DATA_FRAME[column1]=DATA_FRAME[column1].astype(float)
+        #def Pareto(DATA_FRAME,column_index,column_values,color="#9B59B6")
+        pareto=Pareto(DATA_FRAME,column2,column1)
+
+        script,div=components(pareto)
+        js_resources=INLINE.render_js()
+        css_resources=INLINE.render_css()
+        data={
+            "script":script,
+            "div":div,
+            "js_resources":js_resources,
+            "css_resources":css_resources
+        }
+
+        return data
+    except Exception as ex:
+        raise Exception(ex)
+
+the function about its for the next specific query
+def sample(data):
+    QUERY="""SELECT sum(sells.QUANTITY*products.PRODUCTPRICE) AS profit,products.PRODUCTNAME
+        FROM sells
+        INNER JOIN sellers on sellers.IDSELLER=sells.IDSELLER
+        INNER JOIN products on products.IDPRODUCTS=sells.IDPRODUCTS
+        WHERE sells.IDSELLER={0}
+        GROUP BY products.PRODUCTNAME """.format(data['ID'])
+    return QUERY
+
+
+def insertuser(db,data):
+
+    try:
+        cursor=db.connection.cursor()
+        password=generate_password_hash(data['PASSWORD'])
+        new_data={
+            'USERNAME':data['USERNAME'],
+            'HASHPASSWORD':password
+        }
+        QUERY=insertuserquery(new_data)
+        cursor.execute(QUERY)
+        db.connection.commit()
+
+        return jsonify({"mesage":"Insert data Ok!"})
+    except Exception as ex:
+        raise Exception(ex)

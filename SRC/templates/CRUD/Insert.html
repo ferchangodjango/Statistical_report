@@ -1,0 +1,121 @@
+{% extends './layout.html' %}
+
+{% block css %}
+<link rel="stylesheet" href="{{url_for('static',filename='css/grid.css')}}">
+{% endblock %}
+
+{% block bokeh_resource %}
+
+<!--Lineal regression graph-->
+{{data.script|indent(4)|safe}}
+{{data.js_resources|indent(4)|safe}}
+{{data.css_resources|indent(4)|safe}}
+
+
+<!--Lineal regression graph-->
+{{data.script2|indent(4)|safe}}
+{{data.js_resources2|indent(4)|safe}}
+{{data.css_resources2|indent(4)|safe}}
+
+<!-- Pareto quantity data insert for scientist-->
+{{data.script3|indent(4)|safe}}
+{{data.js_resources3|indent(4)|safe}}
+{{data.css_resources3|indent(4)|safe}}
+
+
+{% endblock %}
+
+{% block body %}
+
+<!--Main class that the page-->
+<div class="row mb-2 text-center"> 
+
+  <!--Global title-->
+  <div class="row mb-2 text-center">
+    <div class="pb-2">
+      <h1> Lineal regression </h1>
+      <a class="btn btn-secondary w-100 py-2" href="{{url_for('home')}}">HOME</a>
+    </div>
+  </div>
+  <!--End global title-->
+  <div class="row mb-2 text-center">
+  <!-- Calculated form-->
+    <div class="col-4 themed-grid-col">
+    {% from './macro.html' import render_field %}
+      <form action='insert' method="POST">
+        <img class="mb-4" src="{{url_for('static',filename='img/calculate.svg')}}" alt="" width="250" height="100">
+        <p>
+          Insert value of force for estimate the quantity of 
+          amoniac than to pollute the water
+        </p>
+        <input type="hidden" name="csrf_token" value="{{csrf_token()}}">
+
+        <div class="form-floating">
+          {{render_field(form.FORCE_APPLY, class="form-control", placeholder="FORCE APPLY")}}
+        </div>
+
+        <button class="btn btn-primary w-100 py-2" type="submit">Calculated</button>
+      </form>
+    </div>
+    <!-- End calculated form-->
+
+    <!-- Regresion lineal graph-->
+    <div class="col-4 themed-grid-col"> {{data.div|indent(4)|safe}} </div>
+    <!-- End regresion lineal graph-->
+
+    <!-- Insert new values-->
+    <div class="col-4 themed-grid-col">
+      {% from './macro.html' import render_field %}
+        <form action='insert_value' method="POST">
+          <img class="mb-4" src="{{url_for('static',filename='img/calculate.svg')}}" alt="" width="250" height="100">
+          <p>
+            Insert a new value in the table.
+          </p>
+          <input type="hidden" name="csrf_token" value="{{csrf_token()}}">
+  
+          <div class="form-floating">
+            {{render_field(form.ID, class="form-control", placeholder="ID ENGINIER")}}
+          </div>
+
+          <div class="form-floating">
+            {{render_field(form.FORCE_APPLY, class="form-control", placeholder="FORCE APPLY")}}
+          </div>
+
+          <div class="form-floating">
+            {{render_field(form.QUANTITY_AMONIAC, class="form-control", placeholder="QUANTITY AMONIAC")}}
+          </div>
+          <button class="btn btn-primary w-100 py-2" type="submit">Insert</button>
+        </form>
+      </div>
+      <!-- End insert new values-->
+  </div>
+
+
+  <div class="row mb-2 text-center">
+    <!-- Return the data about the limits-->
+    <div class="col-4 themed-grid-col">
+        <div class="form-floating">
+          
+          <p> Y_estimada: {{data.Y_estimada}}</p>
+          <p> 
+            El limite inferior de predicción interior es(LIPI): {{data.LIPI}}
+          </p>
+          <p> El limite superior de predicción interior es (LSPI): {{data.LSPI}}</p>
+          <p> El limite inferior de predicción futuro es (LIPIF): {{data.LIPIF}}</p>
+          <p> El limite superior de predicción interior es (LSPIF): {{data.LSPIF}}</p>
+        
+        </div>
+    </div>
+    <!--End return the data about the limits-->
+
+    <!-- Intervals graph-->
+    <div class="col-4 themed-grid-col"> {{data.div2|indent(4)|safe}} </div>
+    <!-- End Intervals graph-->
+
+    <!-- Pareto quantity data insert for scientist-->
+    <div class="col-4 themed-grid-col"> {{data.div3|indent(4)|safe}} </div>
+    <!-- End Pareto quantity data insert for scientist-->
+
+  </div>
+</div>
+{% endblock %}

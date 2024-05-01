@@ -1,0 +1,14 @@
+--Create a query than show the products sells about a specific seller.
+
+SELECT papercompany.sells.QUANTITY,papercompany.products.PRODUCTPRICE,papercompany.products.PRODUCTNAME,papercompany.sellers.NAME,papercompany.sellers.LASTNAME
+FROM papercompany.sells
+INNER JOIN papercompany.sellers on papercompany.sellers.IDSELLER=papercompany.sells.IDSELLER
+INNER JOIN papercompany.products on papercompany.products.IDPRODUCTS=papercompany.sells.IDPRODUCTS
+WHERE papercompany.sells.IDSELLER=56
+--Create a query than show the profit for  products sells , about a specific seller.
+SELECT sum(papercompany.sells.QUANTITY*papercompany.products.PRODUCTPRICE) AS profit,papercompany.products.PRODUCTNAME,papercompany.sellers.NAME,papercompany.sellers.LASTNAME
+FROM papercompany.sells
+INNER JOIN papercompany.sellers on papercompany.sellers.IDSELLER=papercompany.sells.IDSELLER
+INNER JOIN papercompany.products on papercompany.products.IDPRODUCTS=papercompany.sells.IDPRODUCTS
+WHERE papercompany.sells.IDSELLER=56
+GROUP BY papercompany.products.PRODUCTNAME
