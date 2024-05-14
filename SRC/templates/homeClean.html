@@ -1,0 +1,108 @@
+{% extends './layout.html' %}
+
+{% block css %}
+<link rel="stylesheet" href="{{url_for('static',filename='css/grid.css')}}">
+{% endblock %}
+
+{% block bokeh_resource %}
+
+<!-- Histogram river up, sample of amoniac-->
+{{data.script1|indent(4)|safe}}
+{{data.js_resources1|indent(4)|safe}}
+{{data.css_resources1|indent(4)|safe}}
+
+<!-- Histogram river down, sample of amoniac-->
+{{data.script2|indent(4)|safe}}
+{{data.js_resources2|indent(4)|safe}}
+{{data.css_resources2|indent(4)|safe}}
+
+<!--Histogram dependient variable for quantity of amoniac-->
+{{data.script3|indent(4)|safe}}
+{{data.js_resources3|indent(4)|safe}}
+{{data.css_resources3|indent(4)|safe}}
+
+<!--Histogram independient variable for quantity force-->
+{{data.script4|indent(4)|safe}}
+{{data.js_resources4|indent(4)|safe}}
+{{data.css_resources4|indent(4)|safe}}
+
+<!--Lineal regression graph-->
+{{data.script5|indent(4)|safe}}
+{{data.js_resources5|indent(4)|safe}}
+{{data.css_resources5|indent(4)|safe}}
+
+<!--Box plot sample to amoniac river up-->
+{{data.script6|indent(4)|safe}}
+{{data.js_resources6|indent(4)|safe}}
+{{data.css_resources6|indent(4)|safe}}
+
+{% endblock %}
+
+{% block body %}
+
+
+<div class="row mb-3 text-center">
+    
+    <div class="row mb-3 text-center">
+        <div class="pb-3">
+          <h1> Main Dashboard </h1>
+        </div>
+
+
+    <div class="row mb-3 text-center">
+        <!-- Histogram river up, sample of amoniac-->
+        <div class="col-4 themed-grid-col"> {{data.div1|indent(4)|safe}} </div>
+        <!-- Histogram river down, sample of amoniac-->
+        <div class="col-4 themed-grid-col"> {{data.div2|indent(4)|safe}} </div>
+        <!--Box plot sample to amoniac river up-->
+        <div class="col-4 themed-grid-col"> {{data.div6|indent(4)|safe}} </div>
+    </div>
+
+    <div class="row mb-3 text-center">
+        <!-- Normalidad test-->
+        <div class="col-4 themed-grid-col"> 
+            <a class="btn btn-secondary w-100 py-2" href="{{url_for('AmoniacRiverUp_centralLimit')}}">Normality test</a> 
+        </div>
+        <!-- Normalidad test-->
+        <div class="col-4 themed-grid-col"> 
+            <a class="btn btn-secondary w-100 py-2" href="{{url_for('AmoniacRiverDown_centralLimit')}}">Normality test</a>
+
+        </div>
+        <!--Hipotesis test-->
+        <div class="col-4 themed-grid-col"> 
+            <a class="btn btn-secondary w-100 py-2" href="{{url_for('home')}}">Hipotesis test</a>
+         </div>
+    </div>
+
+    <div class="row mb-3 text-center">
+        <!--Histogram dependient variable for quantity of amoniac-->
+        <div class="col-4 themed-grid-col"> {{data.div3|indent(4)|safe}} </div>
+        <!--Histogram independient variable for quantity force-->
+        <div class="col-4 themed-grid-col"> {{data.div4|indent(4)|safe}} </div>
+        <!--Lineal regression graph-->
+        <div class="col-4 themed-grid-col">{{data.div5|indent(4)|safe}}</div>
+    </div>
+
+    <div class="row mb-3 text-center">
+        <!-- Normalidad test-->
+        <div class="col-4 themed-grid-col">
+            <a class="btn btn-secondary w-100 py-2" href="{{url_for('Force_centralLimit')}}">Normality test</a> 
+        </div>
+        <!-- Normalidad test-->
+        <div class="col-4 themed-grid-col"> 
+            <a class="btn btn-secondary w-100 py-2" href="{{url_for('AmoniacExperiment_centralLimit')}}">Normality test</a>
+
+        </div>
+        <!--Lineal regression-->
+        <div class="col-4 themed-grid-col"> 
+            <a class="btn btn-secondary w-100 py-2" href="{{url_for('insert')}}">Regression Lineal</a>
+         </div>
+    </div>
+    
+
+</div>
+
+
+  
+
+{% endblock %}

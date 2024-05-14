@@ -1,0 +1,7 @@
+En esta secciòn tocaremos nuevamente
+este codigo, para poder optimizarlo, esto quiere decir
+que lo haremos màs legible y reutilizable en el futuro.
+
+Lo primero que corregimos fueron las funciones enormes que provienen del archivo CRUD,
+para hacer obias dichas correcciones, creamos un archivo llamado CRUDCLEAN.py
+

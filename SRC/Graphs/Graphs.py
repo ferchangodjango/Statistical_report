@@ -254,9 +254,11 @@ def Q_Q_Graphs(Data,column,name,distribution,s=0.9,n=500,p=0.1,ancho=400,alto=40
 
 
 
-def histogram_plot(Data,column,name,distribution,m=0,std=1,s=0.9,n=500,p=0.1,ancho=400,alto=400,color='#008080'):
+def histogram_plot(Data,column,name,distribution,s=0.9,n=500,p=0.1,width=400,height=400,color='#008080'):
     N=Data[column].count()
-    figure_h=figure(title=name,plot_width=ancho,plot_height=alto,
+    mean=Data[column].mean()
+    stdDev=Data[column].std()
+    figure_h=figure(title=name,plot_width=width,plot_height=height,
                toolbar_location="below")
     figure_h.xgrid.grid_line_color=None
     figure_h.ygrid.grid_line_alpha=0.7
@@ -268,7 +270,7 @@ def histogram_plot(Data,column,name,distribution,m=0,std=1,s=0.9,n=500,p=0.1,anc
     if distribution=='normal':
         hist,edges=np.histogram(Data[column],density=True,bins=Number_intervals)
         x = np.linspace(min(Data[column]), max(Data[column]), num=N)
-        y = stats.norm.pdf(x,m,std)
+        y = stats.norm.pdf(x,mean,stdDev)
         # Histograma distribución normal
         figure_h.quad(top=hist,bottom=0,left=edges[:-1],right=edges[1:],
               fill_color=color,line_color='black',legend_label='Normal_distribution')
@@ -370,3 +372,27 @@ def lineal_regression(data,column1,column2,widht=400,heigth=400):
     
     return figure1
 
+def limits_regression(x1,x2,widht=100,heigth=100):
+    y1=[1,1]
+    y2=[2,2]
+
+    figure1=figure(
+        title="Intervals graph",
+        plot_width=widht,plot_height=heigth,
+        toolbar_location='below')
+
+    figure1.xgrid.grid_line_color=None
+    figure1.xaxis.major_label_text_font_size='15px'
+    figure1.toolbar.autohide=True
+
+    figure1.line(x1,y1,color='green')
+    figure1.line(x2,y2,color='blue')
+    figure1.varea(x=x1,
+                  y1=y1,
+                  y2=y2,alpha=0.5)
+    figure1.varea(x=x2,
+                  y1=y1,
+                  y2=y2,alpha=0.5)
+    
+    return figure1
+    

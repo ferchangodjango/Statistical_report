@@ -5,7 +5,16 @@ from bokeh.embed import components
 from bokeh.resources import INLINE
 from bokeh.plotting import figure
 
-def lineal_regression_calculated(data,column1,column2,variable,widht=500,heigth=300):
+def lineal_regression_calculated(data,column1,column2,variable):
+    """This function calculated the  regression ecuation, and the confidence limits,
+    predictive limits, and the resources from view the graph
+        data={
+        "Y_estimada":round(Y_estimada,3),
+        "LIPI":round(LIPI,3),
+        "LSPI":round(LSPI,3),
+        "LIPIF":round(LIPIF,3),
+        "LSPIF":round(LSPIF,3),
+    """
 
     #Calculo de la regresion lineal.
     rls=pgn.linear_regression(X=data[column1],y=data[column2],as_dataframe=False)
@@ -50,45 +59,13 @@ def lineal_regression_calculated(data,column1,column2,variable,widht=500,heigth=
     #Ecuación de limite infererior y superior de predicción future (lipif & lspif)
     LIPIF=(Y_estimada-stadistic*s*(1+(1/n)+((x-x_media)**2/Sxx))**0.5)
     LSPIF=(Y_estimada+stadistic*s*(1+(1/n)+((x-x_media)**2/Sxx))**0.5)
-    
-    x1=[LIPI,LSPI]
-    x2=[LIPIF,LSPIF]
-    y1=[1,1]
-    y2=[2,2]
-
-    figure1=figure(
-        title="Intervals graph",
-        plot_width=widht,plot_height=heigth,
-        toolbar_location='below')
-
-    figure1.xgrid.grid_line_color=None
-    figure1.xaxis.major_label_text_font_size='15px'
-    figure1.toolbar.autohide=True
-
-    figure1.line(x1,y1,color='green')
-    figure1.line(x2,y2,color='blue')
-    figure1.varea(x=x1,
-                  y1=y1,
-                  y2=y2,alpha=0.5)
-    figure1.varea(x=x2,
-                  y1=y1,
-                  y2=y2,alpha=0.5)
-
-    script,div=components(figure1)
-    js_resources=INLINE.render_js()
-    css_resources=INLINE.render_css()
-
 
     data={
         "Y_estimada":round(Y_estimada,3),
         "LIPI":round(LIPI,3),
         "LSPI":round(LSPI,3),
         "LIPIF":round(LIPIF,3),
-        "LSPIF":round(LSPIF,3),
-        "script2":script,
-        "div2":div,
-        "js_resources2":js_resources,
-        "css_resources2":css_resources
+        "LSPIF":round(LSPIF,3)
       }
     
     return data
